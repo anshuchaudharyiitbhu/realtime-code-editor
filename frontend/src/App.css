@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  background-color: #f4f6fa;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* ========== Join Page ========== */
+.join-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f6fa;
+}
+
+.join-form {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  width: 340px;
+  transition: transform 0.2s ease;
+}
+
+.join-form:hover {
+  transform: translateY(-4px);
+}
+
+.join-form h1 {
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  font-size: 1.75rem;
+}
+
+.join-form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.join-form input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+  outline: none;
+}
+
+.join-form button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.join-form button:hover {
+  background-color: #357abd;
+  transform: scale(1.02);
+}
+
+/* ========== Editor Layout ========== */
+.editor-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  padding: 1.5rem;
+  background-color: #1f2937;
+  color: #ecf0f1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.room-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.room-info h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+}
+
+.copy-button {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.copy-button:hover {
+  background-color: #2563eb;
+}
+
+.copy-success {
+  margin-top: 0.5rem;
+  color: #22c55e;
+  font-size: 0.85rem;
+}
+
+/* Sidebar Sections */
+.sidebar h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar li {
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.5rem;
+  background-color: #374151;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #e5e7eb;
+}
+
+/* Typing */
+.typing-indicator {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #d1d5db;
+}
+
+/* Selector */
+.language-selector {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #334155;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+/* Leave Button */
+.leave-button {
+  margin-top: 2rem;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.leave-button:hover {
+  background-color: #b91c1c;
+}
+
+/* ========== Editor Area ========== */
+.editor-wrapper {
+  flex-grow: 1;
+  background-color: #f9fafb;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Run Button */
+.run-btn {
+  background-color: #10b981;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s;
+}
+
+.run-btn:hover {
+  background-color: #059669;
+}
+
+/* Output Console */
+.output-console {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+  font-size: 1rem;
+  height: 200px;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow-y: auto;
+}
+
+/* Input Console */
+.input-console {
+  width: 100%;
+  height: 80px;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  font-family: monospace;
+  background-color: #1e1e1e;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 6px;
+  resize: none;
+}
+/* ========== Responsive Design ========== */
+
+/* For tablets and smaller (max width: 1024px) */
+@media (max-width: 1024px) {
+  .editor-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .sidebar h3,
+  .sidebar ul,
+  .typing-indicator,
+  .language-selector,
+  .leave-button {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .editor-wrapper {
+    height: auto;
+  }
+}
+
+/* For mobile phones (max width: 640px) */
+@media (max-width: 640px) {
+  .join-form {
+    width: 90%;
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .editor-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    padding: 1rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .run-btn,
+  .leave-button,
+  .language-selector {
+    width: 100%;
+  }
+
+  .output-console,
+  .input-console {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+}
