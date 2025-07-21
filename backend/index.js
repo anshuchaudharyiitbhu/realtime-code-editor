@@ -3,11 +3,8 @@ import http from "http";
 import { Server } from "socket.io";
 import path from "path";
 import axios from "axios";
-import { log } from "console";
-import { toast } from "react-toastify";
 
 const app = express();
-
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -27,17 +24,15 @@ io.on("connection", (socket) => {
   socket.on("join", ({ roomId, userName }) => {
     if (currentRoom) {
       socket.leave(currentRoom);
-      rooms.get(currentRoom).users.delete(currentUser);
+      rooms.get(currentRoom)?.users?.delete(currentUser);
       io.to(currentRoom).emit(
         "userJoined",
-        Array.from(rooms.get(currentRoom).users)
+        Array.from(rooms.get(currentRoom)?.users || [])
       );
-      
     }
 
     currentRoom = roomId;
     currentUser = userName;
-  //  console.log(currentRoom,currentUser);
 
     socket.join(roomId);
 
@@ -49,7 +44,7 @@ io.on("connection", (socket) => {
 
     socket.emit("codeUpdate", rooms.get(roomId).code);
 
-    io.to(roomId).emit("userJoined", Array.from(rooms.get(currentRoom).users));
+    io.to(roomId).emit("userJoined", Array.from(rooms.get(roomId).users));
   });
 
   socket.on("codeChange", ({ roomId, code }) => {
@@ -61,12 +56,11 @@ io.on("connection", (socket) => {
 
   socket.on("leaveRoom", () => {
     if (currentRoom && currentUser) {
-      rooms.get(currentRoom).users.delete(currentUser);
+      rooms.get(currentRoom)?.users?.delete(currentUser);
       io.to(currentRoom).emit(
         "userJoined",
-        Array.from(rooms.get(currentRoom).users)
+        Array.from(rooms.get(currentRoom)?.users || [])
       );
-
       socket.leave(currentRoom);
 
       currentRoom = null;
@@ -86,49 +80,47 @@ io.on("connection", (socket) => {
     "compileCode",
     async ({ code, roomId, language, version, input }) => {
       if (rooms.has(roomId)) {
-        const room = rooms.get(roomId);
-        const response = await axios.post(
-          "https://emkc.org/api/v2/piston/execute",
-          {
-            language,
-            version,
-            files: [
-              {
-                content: code,
-              },
-            ],
-            stdin: input,
-          }
-        );
-
-        room.output = response.data.run.output;
-        io.to(roomId).emit("codeResponse", response.data);
+        try {
+          const response = await axios.post(
+            "https://emkc.org/api/v2/piston/execute",
+            {
+              language,
+              version,
+              files: [{ content: code }],
+              stdin: input,
+            }
+          );
+          rooms.get(roomId).output = response.data.run.output;
+          io.to(roomId).emit("codeResponse", response.data);
+        } catch (error) {
+          io.to(roomId).emit("codeResponse", { run: { output: "Error compiling code" } });
+        }
       }
     }
   );
 
   socket.on("disconnect", () => {
     if (currentRoom && currentUser) {
-      rooms.get(currentRoom).users.delete(currentUser);
+      rooms.get(currentRoom)?.users?.delete(currentUser);
       io.to(currentRoom).emit(
         "userJoined",
-        Array.from(rooms.get(currentRoom).users)
+        Array.from(rooms.get(currentRoom)?.users || [])
       );
     }
     console.log("user Disconnected");
   });
 });
 
+// ======== Serve frontend for production ========
 const port = process.env.PORT || 5000;
-
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
 server.listen(port, () => {
-  console.log("server is working on port 5000");
+  console.log("server is working on port", port);
 });
