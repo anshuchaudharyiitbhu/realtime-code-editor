@@ -17,7 +17,7 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [typing, setTyping] = useState("");
   const [outPut, setOutPut] = useState("");
-  const [version, setVersion] = useState("*");
+ 
 
   useEffect(() => {
     socket.on("userJoined", (users) => {
@@ -112,12 +112,11 @@ const App = () => {
 
   const runCode = () => {
     socket.emit("compileCode", {
-      code,
-      roomId,
-      language,
-      version,
-      input: userInput,
-    });
+  code,
+  roomId,
+  language,
+  input: userInput,
+});
   };
 
   const createRoomId = () => {
