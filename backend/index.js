@@ -93,8 +93,16 @@ io.on("connection", (socket) => {
           rooms.get(roomId).output = response.data.run.output;
           io.to(roomId).emit("codeResponse", response.data);
         } catch (error) {
-          io.to(roomId).emit("codeResponse", { run: { output: "Error compiling code" } });
-        }
+  console.log(error.response?.data || error.message);
+
+  io.to(roomId).emit("codeResponse", {
+    run: {
+      output:
+        JSON.stringify(error.response?.data) ||
+        error.message,
+    },
+  });
+}
       }
     }
   );
