@@ -37,9 +37,9 @@ const App = () => {
       setLanguage(newLanguage);
     });
 
-    socket.on("codeResponse", (response) => {
-      setOutPut(response.run.output);
-    });
+    // socket.on("codeResponse", (response) => {
+    //   setOutPut(response.run.output);
+    // });
 
     return () => {
       socket.off("userJoined");
@@ -110,14 +110,14 @@ const App = () => {
 
   const [userInput, setUserInput] = useState("");
 
-  const runCode = () => {
-    socket.emit("compileCode", {
-  code,
-  roomId,
-  language,
-  input: userInput,
-});
-  };
+//   const runCode = () => {
+//     socket.emit("compileCode", {
+//   code,
+//   roomId,
+//   language,
+//   input: userInput,
+// });
+//   };
 
   const createRoomId = () => {
     const roomId = uuid();
@@ -204,7 +204,7 @@ const App = () => {
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="Enter input here..."
         />
-        <button className="run-btn" onClick={runCode}>
+        {/* <button className="run-btn" onClick={runCode}>
           Execute
         </button>
         <textarea
@@ -212,7 +212,7 @@ const App = () => {
           value={outPut}
           readOnly
           placeholder="Output will appear here ..."
-        />
+        /> */}
       </div>
     </div>
   );
