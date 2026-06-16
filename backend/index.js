@@ -3,8 +3,7 @@ import http from "http";
 import { Server } from "socket.io";
 import path from "path";
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
+
 
 const app = express();
 const server = http.createServer(app);
