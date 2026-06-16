@@ -46,7 +46,7 @@ const App = () => {
       socket.off("codeUpdate");
       socket.off("userTyping");
       socket.off("languageUpdate");
-      socket.off("codeResponse");
+      // socket.off("codeResponse");
     };
   }, []);
 
@@ -187,7 +187,7 @@ const App = () => {
 
       <div className="editor-wrapper">
         <Editor
-          height={"60%"}
+          height={"100%"}
           defaultLanguage={language}
           language={language}
           value={code}
@@ -198,12 +198,12 @@ const App = () => {
             fontSize: 14,
           }}
         />
-        <textarea
+        {/* <textarea
           className="input-console"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="Enter input here..."
-        />
+        /> */}
         {/* <button className="run-btn" onClick={runCode}>
           Execute
         </button>
