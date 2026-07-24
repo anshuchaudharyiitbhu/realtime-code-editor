@@ -5,7 +5,7 @@ import Editor from "@monaco-editor/react";
 import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
 
-const socket = io("https://realtime-code-editor-s82z.onrender.com/");
+const socket = io("https://realtime-code-editor-oblz.onrender.com");
 
 const App = () => {
   const [joined, setJoined] = useState(false);
